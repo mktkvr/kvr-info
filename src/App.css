@@ -1,0 +1,84 @@
+/* src/App.css */
+.App {
+  text-align: center;
+  padding-top: 100px; /* Prevent content from being hidden behind the navbar */
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 1px;
+  color: white;
+}
+
+.app-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+  gap: 20px; /* Add gap between items */
+}
+
+@media (min-width: 600px) {
+  .app-links {
+    justify-content: space-evenly;
+  }
+}
+.app-links {
+  padding: 20px;
+}
+
+.app-group {
+  margin-bottom: 30px;
+}
+
+.app-group h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.app-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.app-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-img {
+  width: 60px;
+  height: 60px;
+}
+
+.app-link span {
+  margin-top: 5px;
+  text-align: center;
+}
+
+/* src/App.css */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the app takes at least the full height of the viewport */
+}
+
+.content {
+  flex: 1; /* Allow content to expand and push the footer to the bottom */
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  font-size: 0.9em;
+  text-align: center;
+  /* Ensure footer is properly positioned */
+}

@@ -1,0 +1,161 @@
+/* components/Auth.css */
+.auth-container {
+  max-width: 500px; /* Width of the form container */
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-container h2 {
+  margin-bottom: 20px;
+  font-size: 1.75rem; /* Slightly larger font size for the heading */
+  color: #333;
+}
+
+.auth-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.form-group input {
+  padding: 12px 14px; /* Padding inside input fields */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  width: 100%;
+  background: #f9f9f9;
+  transition: border-color 0.3s;
+}
+
+.form-group label {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 0.875rem;
+  color: #666;
+  transition: 0.2s ease all;
+  background: #f9f9f9;
+  padding: 0 4px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 12px;
+  font-size: 0.75rem;
+  color: #007bff;
+  background: #fff;
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+.auth-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.auth-button:hover {
+  background-color: #0056b3;
+}
+
+.auth-button:active {
+  transform: scale(0.98);
+}
+
+.login-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.login-button:hover {
+  background-color: #218838;
+}
+
+.login-button:active {
+  transform: scale(0.98);
+}
+
+/* components/Auth.css */
+.auth-button,
+.register-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px; /* Adjusted padding for better button size */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+    text-align: center;
+    display: inline-block;
+}
+
+.auth-button:hover,
+.register-button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+.auth-button:active,
+.register-button:active {
+    transform: scale(0.98); /* Slightly scale down on click */
+}
+
+/* Specific style for register-button to differentiate from auth-button */
+.register-button {
+    background-color: #28a745;
+}
+
+.register-button:hover {
+    background-color: #218838; /* Darker green for hover effect */
+}
+
+.register-button:active {
+    transform: scale(0.98); /* Slightly scale down on click */
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 0.875rem;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 0.875rem;
+}

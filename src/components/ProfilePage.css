@@ -1,0 +1,234 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.profile-info {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.profile-info h2 {
+  margin-top: 0;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 1em;
+  margin-bottom: 20px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
+.profile-info button {
+  margin: 10px 5px;
+  padding: 10px 15px;
+  font-size: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.edit-address-button {
+  background-color: #ffb700;
+  color: #fff;
+}
+
+.edit-address-button:hover {
+  background-color: #e6a700;
+}
+
+.delete-address-button {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.delete-address-button:hover {
+  background-color: #c9302c;
+}
+
+.add-address-button {
+  background-color: #5bc0de;
+  color: #fff;
+}
+
+.add-address-button:hover {
+  background-color: #31b0d5;
+}
+
+.goto-admin-button {
+  background-color: #5cb85c;
+  color: #fff;
+}
+
+.goto-admin-button:hover {
+  background-color: #4cae4c;
+}
+
+.logout-button {
+  background-color: #d9534f;
+  color: #fff;
+  margin-left: auto;
+}
+
+.logout-button:hover {
+  background-color: #c9302c;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.buttons-container .logout-button {
+  margin-left: 0;
+}
+
+
+/* ProfilePage.css */
+
+.profile-container {
+  display: grid;
+  grid-template-columns: 1fr; /* Single column layout */
+  gap: 20px; /* Space between sections */
+  padding: 20px;
+}
+
+
+.buttons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-buttons-container {
+  border-top: 2px solid #ddd; /* Separator line above admin buttons */
+  padding-top: 20px;
+}
+
+.add-address-button, .edit-address-button, .delete-address-button, .logout-button, .goto-admin-button {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.add-address-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.edit-address-button {
+  background-color: #FFA500;
+  color: white;
+}
+
+.delete-address-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.logout-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.goto-admin-button {
+  background-color: #9C27B0;
+  color: white;
+}
+
+
+
+/* ProfilePage.css */
+
+.profile-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* Define rows for nav tabs, profile info, and admin button */
+  gap: 20px; /* Adjust the gap between rows */
+  padding: 20px;
+}
+
+.nav-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.nav-tab {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.profile-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-info {
+  grid-column: 1 / 2;
+}
+
+.add-address-button, .edit-address-button, .delete-address-button, .logout-button {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.add-address-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.edit-address-button {
+  background-color: #FFA500;
+  color: white;
+}
+
+.delete-address-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.logout-button {
+  background-color: #2196F3;
+  color: white;
+}
+
+.admin-button-section {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.view-user-list-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+}

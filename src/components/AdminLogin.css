@@ -1,0 +1,64 @@
+/* src/components/AdminLogin.css */
+.admin-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-bottom: 0px;
+  }
+  
+  .number-grid button {
+    color: azure;
+    background-color: dodgerblue;
+    padding: 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  .number-grid button:hover {
+    color: gold;
+    background-color: rgb(20, 91, 184);
+    padding: 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .entered-code {
+    margin-bottom: 20px;
+  }
+  
+  .entered-code p {
+    margin: 0;
+  }
+  
+  .clear-button {
+    padding: 10px 20px;
+    color: aliceblue;
+    background-color: rgb(238, 0, 0);
+    cursor: pointer;
+    margin-bottom: 0px;
+  }
+
+  .clear-button:hover {
+    padding: 10px 20px;
+    color: aliceblue;
+    background-color: rgb(204, 4, 4);
+    cursor: pointer;
+  }
+    
+  .submit-button {
+    padding: 10px 20px;
+    background-color: rgb(3, 185, 42);
+    cursor: pointer;
+    margin-top: 0px;
+  }
+  .submit-button:hover {
+    padding: 10px 20px;
+    background-color: rgb(2, 141, 32);
+    cursor: pointer;
+  }

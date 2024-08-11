@@ -1,0 +1,130 @@
+/* src/components/AdminPage.css */
+.admin-page {
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.admin-page h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.admin-form label {
+  font-size: 1em;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.admin-form input {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button {
+  padding: 10px;
+  font-size: 1em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.9em;
+}
+
+.app-list {
+  margin-top: 20px;
+}
+
+.app-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.app-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  /* border-radius: 50%; */
+  margin-right: 15px;
+}
+
+.app-details {
+  flex-grow: 1;
+}
+
+.app-details h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.app-details p {
+  margin: 5px 0;
+}
+
+.app-details a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.app-details a:hover {
+  text-decoration: underline;
+}
+
+.edit-button,
+.delete-button {
+  padding: 5px 10px;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.edit-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}

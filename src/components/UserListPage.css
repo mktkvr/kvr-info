@@ -1,0 +1,30 @@
+/* UserListPage.css */
+
+.user-list-container {
+    padding: 20px;
+  }
+  
+  .user-list-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .user-list-table th, .user-list-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .user-list-table th {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .user-list-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 20px;
+  }
+  

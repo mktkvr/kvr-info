@@ -1,0 +1,130 @@
+/* components/AppDisplay.css */
+.app-display {
+    padding: 20px;
+    /* background-color: #f4f4f4; */
+  }
+  
+  .filter-section {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .filter-button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #333;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .filter-button.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+  
+  .filter-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .app-links-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .app-group {
+    margin-bottom: 40px;
+  }
+  
+  .app-group-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .app-links-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .app-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .app-link img {
+    width: 100%;
+    max-width: 100px; /* Ensure icons are not too large */
+    height: 100px; /* Fixed height to ensure uniformity */
+    object-fit: cover; /* Cover ensures the aspect ratio is maintained */
+    border-radius: 8px;
+    /* border-bottom: 1px solid #ddd; */
+  }
+  
+  .app-link .app-details {
+    padding: 10px;
+  }
+  
+  .app-link:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  @media (max-width: 768px) {
+    .app-links-container {
+      grid-template-columns: repeat(4, 1fr);
+      /* width: 100%; */
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .app-links-container {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+  /* components/AppDisplay.css */
+.app-links-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.app-group {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.app-group-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .app-links-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 769px) {
+  .app-links-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
