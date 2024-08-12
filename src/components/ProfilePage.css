@@ -196,3 +196,52 @@
     padding: 8px 16px;
   }
 }
+/* Buttons */
+.modal-button {
+  background-color: #007bff; /* Default primary button color */
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Distinct Logout Button */
+.logout-button {
+  background-color: #dc3545; /* Red color for emphasis */
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px); /* Slight lift effect */
+}
+/* ProfilePage.css */
+.cover-sheet-button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+
+.cover-sheet-button:hover {
+  background-color: #218838;
+}

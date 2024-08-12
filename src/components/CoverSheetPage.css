@@ -1,0 +1,190 @@
+.cover-sheet-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .cover-sheet-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .add-cover-sheet-button,
+  .generate-pdf-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 5px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .add-cover-sheet-button:hover,
+  .generate-pdf-button:hover {
+    background-color: #45a049;
+  }
+  
+  .cover-sheet-list {
+    margin-top: 20px;
+  }
+  
+  .cover-sheet-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cover-sheet-list li {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .cover-sheet-list li div {
+    margin-bottom: 5px;
+  }
+  
+  .print-button,
+  .delete-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .print-button:hover,
+  .delete-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-content h3 {
+    margin-top: 0;
+  }
+  
+  .modal-content form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-content form div {
+    margin-bottom: 15px;
+  }
+  
+  .modal-content form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .modal-content form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .modal-content form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .modal-content form button:hover {
+    background-color: #45a049;
+  }
+  
+  .modal-content form button.cancel-button {
+    background-color: #dc3545;
+  }
+  
+  .modal-content form button.cancel-button:hover {
+    background-color: #c82333;
+  }
+  /* src/CoverSheetPage.css */
+.cover-sheet-container {
+    padding: 20px;
+  }
+  
+  .add-cover-sheet-button, .generate-pdf-button {
+    margin: 10px;
+  }
+  
+  .cover-sheet-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .cover-sheet-list li {
+    margin-bottom: 10px;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 500px;
+    width: 100%;
+  }
+  

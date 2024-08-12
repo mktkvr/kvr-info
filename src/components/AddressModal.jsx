@@ -30,7 +30,7 @@ const AddressModal = ({ isOpen, onClose, onAddAddress, addressData, onEditAddres
   };
 
   const handleSubmit = () => {
-    const addressToSave = {
+    const newAddress = {
       address,
       subdistrict,
       district,
@@ -39,9 +39,9 @@ const AddressModal = ({ isOpen, onClose, onAddAddress, addressData, onEditAddres
     };
 
     if (addressData) {
-      onEditAddress(addressToSave);
+      onEditAddress(newAddress);
     } else {
-      onAddAddress(addressToSave);
+      onAddAddress(newAddress);
     }
 
     resetForm(); // Reset form after submission
@@ -104,13 +104,13 @@ const AddressModal = ({ isOpen, onClose, onAddAddress, addressData, onEditAddres
           <div className="form-group">
             <input
               type="text"
-              id="postalCode"
+              id="zipCode"
               value={zipCode}
               onChange={(e) => setZipCode(e.target.value)}
               required
               placeholder=" "
             />
-            <label htmlFor="postalCode">Postal Code</label>
+            <label htmlFor="zipCode">ZipCode</label>
           </div>
         </div>
         <div className="modal-actions">

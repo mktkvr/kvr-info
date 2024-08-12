@@ -13,6 +13,7 @@ import { db } from './components/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import AppDisplay from './components/AppDisplay';
 import ProtectedRoute from './components/ProtectedRoute';
+import CoverSheetPage from './components/CoverSheetPage';
 import Footer from './components/Footer';
 
 import './App.css';
@@ -114,6 +115,7 @@ const App = () => {
             <Route path="/login" element={<LoginPage onLoginSuccess={handleLoginSuccess} />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/user-list" element={<UserListPage />} />
+            <Route path="/cover-sheet" element={<CoverSheetPage />} />
             <Route path="/app" element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <AppDisplay groupedApps={groupedApps} />
