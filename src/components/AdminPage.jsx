@@ -1,4 +1,3 @@
-// components/AdminPage.jsx
 import React, { useState, useEffect } from 'react';
 import './AdminPage.css';
 import EditModal from './EditModal';
@@ -15,6 +14,7 @@ const AdminPage = () => {
   const [appToDelete, setAppToDelete] = useState(null);
   const [showModalForm, setShowModalForm] = useState(false);
   const [apps, setApps] = useState([]);
+  const [filter, setFilter] = useState('all'); // State for filtering
 
   const fetchApps = async () => {
     try {
@@ -45,17 +45,15 @@ const AdminPage = () => {
 
       try {
         if (editIndex !== null) {
-          // Edit existing link
           const appDoc = doc(db, "apps", apps[editIndex].id);
           await updateDoc(appDoc, { name, url, imgSrc, type });
         } else {
-          // Add new link
           const newApp = { name, url, imgSrc, type };
           await addDoc(collection(db, "apps"), newApp);
         }
         setShowModalForm(false);
         setEditIndex(null);
-        fetchApps(); // Fetch updated data
+        fetchApps();
       } catch (error) {
         console.error("Error updating app: ", error);
         setError('An error occurred while updating app link.');
@@ -103,13 +101,8 @@ const AdminPage = () => {
     }
   };
 
-  const appsByType = apps.reduce((acc, app) => {
-    if (!acc[app.type]) {
-      acc[app.type] = [];
-    }
-    acc[app.type].push(app);
-    return acc;
-  }, {});
+  // Filtered apps based on the selected filter
+  const filteredApps = filter === 'all' ? apps : apps.filter(app => app.type === filter);
 
   return (
     <div className="admin-page">
@@ -118,27 +111,42 @@ const AdminPage = () => {
 
       {error && <div className="error-message">{error}</div>}
 
-      {Object.keys(appsByType).map(type => (
-        <div key={type} className={`app-list ${type.toLowerCase()}-list`}>
-          <h2>{type} Links</h2>
-          {appsByType[type].length > 0 ? (
-            appsByType[type].map((app, index) => (
-              <div key={app.id} className="app-item">
-                <img src={app.imgSrc} alt={`${app.name} logo`} className="app-img" />
-                <div className="app-details">
-                  <h3>{app.name}</h3>
-                  <p>Type: {app.type}</p>
-                  <p><a href={app.url} target="_blank" rel="noopener noreferrer">View Link</a></p>
-                  <button onClick={() => handleEdit(index)} className="edit-button">Edit</button>
-                  <button onClick={() => handleDelete(index)} className="delete-button">Delete</button>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No links available</p>
-          )}
+      <div className="tabs">
+        <div 
+          className={`tab ${filter === 'all' ? 'active' : ''}`} 
+          onClick={() => setFilter('all')}
+        >
+          All
         </div>
-      ))}
+        {[...new Set(apps.map(app => app.type))].map(type => (
+          <div 
+            key={type} 
+            className={`tab ${filter === type ? 'active' : ''}`} 
+            onClick={() => setFilter(type)}
+          >
+            {type}
+          </div>
+        ))}
+      </div>
+
+      <div className="app-list">
+        {filteredApps.length > 0 ? (
+          filteredApps.map((app, index) => (
+            <div key={app.id} className="app-item">
+              <img src={app.imgSrc} alt={`${app.name} logo`} className="app-img" />
+              <div className="app-details">
+                <h3>{app.name}</h3>
+                <p>Type: {app.type}</p>
+                <p><a href={app.url} target="_blank" rel="noopener noreferrer">View Link</a></p>
+                <button onClick={() => handleEdit(index)} className="edit-button">Edit</button>
+                <button onClick={() => handleDelete(index)} className="delete-button">Delete</button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No links available</p>
+        )}
+      </div>
 
       {showEditModal && (
         <EditModal 

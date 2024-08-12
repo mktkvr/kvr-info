@@ -5,7 +5,6 @@ import RegisterPage from './components/RegisterPage';
 import ProfilePage from './components/ProfilePage';
 import Navbar from './components/Navbar';
 import AdminPage from './components/AdminPage';
-import FloatingAdminIcon from './components/FloatingAdminIcon';
 import UserListPage from './components/UserListPage';
 import OCRPage from './components/OCRPage';
 import UploadPage from './components/UploadPage';
@@ -146,7 +145,6 @@ const App = () => {
               </ProtectedRoute>
             } />
           </Routes>
-          <FloatingAdminIcon /> {/* Add the floating admin icon */}
           <Footer />
         </div>
       </RouteManager>

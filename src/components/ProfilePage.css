@@ -1,7 +1,8 @@
 .profile-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
   padding: 20px;
   max-width: 800px;
   margin: auto;
@@ -11,32 +12,34 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 15px; /* Reduced padding */
   width: 100%;
   max-width: 600px;
-  margin-bottom: 20px;
+  text-align: center; /* Center text inside profile-info */
 }
 
 .profile-info h2 {
   margin-top: 0;
+  font-size: 1.25rem; /* Slightly smaller font size */
 }
 
 .error-message {
   color: #d9534f;
-  font-size: 1em;
-  margin-bottom: 20px;
+  font-size: 0.875rem; /* Smaller font size */
+  margin-bottom: 15px; /* Reduced margin */
 }
 
 .profile-info p {
-  margin: 5px 0;
+  margin: 4px 0; /* Reduced margin */
+  font-size: 0.875rem; /* Smaller font size */
 }
 
 .profile-info button {
-  margin: 10px 5px;
-  padding: 10px 15px;
-  font-size: 1em;
+  margin: 8px 4px; /* Reduced margin */
+  padding: 8px 12px; /* Smaller padding */
+  font-size: 0.875rem; /* Smaller font size */
   border: none;
-  border-radius: 5px;
+  border-radius: 4px; /* Slightly smaller border radius */
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 }
@@ -80,7 +83,6 @@
 .logout-button {
   background-color: #d9534f;
   color: #fff;
-  margin-left: auto;
 }
 
 .logout-button:hover {
@@ -89,146 +91,43 @@
 
 .buttons-container {
   display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-top: 20px;
-}
-
-.buttons-container .logout-button {
-  margin-left: 0;
-}
-
-
-/* ProfilePage.css */
-
-.profile-container {
-  display: grid;
-  grid-template-columns: 1fr; /* Single column layout */
-  gap: 20px; /* Space between sections */
-  padding: 20px;
-}
-
-
-.buttons-container {
-  display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center; /* Center buttons horizontally */
+  gap: 8px; /* Reduced gap */
+  width: 100%;
+  margin-top: 15px; /* Reduced margin-top */
 }
 
 .admin-buttons-container {
   border-top: 2px solid #ddd; /* Separator line above admin buttons */
-  padding-top: 20px;
+  padding-top: 15px; /* Reduced padding */
 }
 
-.add-address-button, .edit-address-button, .delete-address-button, .logout-button, .goto-admin-button {
-  padding: 10px;
+.view-user-list-button {
+  padding: 8px 16px; /* Smaller padding */
   border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.add-address-button {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.edit-address-button {
-  background-color: #FFA500;
-  color: white;
-}
-
-.delete-address-button {
-  background-color: #f44336;
-  color: white;
-}
-
-.logout-button {
-  background-color: #2196F3;
-  color: white;
-}
-
-.goto-admin-button {
-  background-color: #9C27B0;
-  color: white;
-}
-
-
-
-/* ProfilePage.css */
-
-.profile-container {
-  display: grid;
-  grid-template-rows: auto 1fr auto; /* Define rows for nav tabs, profile info, and admin button */
-  gap: 20px; /* Adjust the gap between rows */
-  padding: 20px;
-}
-
-.nav-tabs {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.nav-tab {
-  padding: 10px;
-  border: none;
+  border-radius: 4px; /* Slightly smaller border radius */
   cursor: pointer;
   background-color: #4CAF50;
   color: white;
-  font-size: 16px;
-  border-radius: 5px;
+  font-size: 0.875rem; /* Smaller font size */
 }
 
 .profile-info-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: center; /* Center profile info horizontally */
+  gap: 15px; /* Reduced gap */
 }
 
-.profile-info {
-  grid-column: 1 / 2;
-}
+@media (max-width: 768px) {
+  .profile-info {
+    padding: 10px; /* Further reduced padding */
+    width: 90%;
+  }
 
-.add-address-button, .edit-address-button, .delete-address-button, .logout-button {
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.add-address-button {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.edit-address-button {
-  background-color: #FFA500;
-  color: white;
-}
-
-.delete-address-button {
-  background-color: #f44336;
-  color: white;
-}
-
-.logout-button {
-  background-color: #2196F3;
-  color: white;
-}
-
-.admin-button-section {
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 20px;
-}
-
-.view-user-list-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
+  .buttons-container {
+    flex-direction: column;
+    gap: 8px; /* Reduced gap */
+  }
 }
