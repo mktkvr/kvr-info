@@ -2,7 +2,7 @@
   padding: 20px;
 }
 
-.filter-section {
+.filter-section-app {
   margin-bottom: 20px;
   text-align: center;
 }
@@ -26,7 +26,8 @@
 }
 
 .filter-button:hover {
-  background-color: #e0e0e0;
+  color: #ffffff;
+  background-color: #234cff;
 }
 
 .app-links-container {

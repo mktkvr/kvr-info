@@ -7,7 +7,7 @@ const AddressModal = ({ isOpen, onClose, onAddAddress, addressData, onEditAddres
   const [subdistrict, setSubdistrict] = useState('');
   const [district, setDistrict] = useState('');
   const [province, setProvince] = useState('');
-  const [postalCode, setPostalCode] = useState('');
+  const [zipCode, setZipCode] = useState('');
 
   useEffect(() => {
     if (addressData) {
@@ -15,7 +15,7 @@ const AddressModal = ({ isOpen, onClose, onAddAddress, addressData, onEditAddres
       setSubdistrict(addressData.subdistrict || '');
       setDistrict(addressData.district || '');
       setProvince(addressData.province || '');
-      setPostalCode(addressData.postalCode || '');
+      setZipCode(addressData.zipCode || '');
     } else {
       resetForm();
     }
@@ -26,22 +26,22 @@ const AddressModal = ({ isOpen, onClose, onAddAddress, addressData, onEditAddres
     setSubdistrict('');
     setDistrict('');
     setProvince('');
-    setPostalCode('');
+    setZipCode('');
   };
 
   const handleSubmit = () => {
-    const newAddress = {
+    const addressToSave = {
       address,
       subdistrict,
       district,
       province,
-      postalCode
+      zipCode
     };
 
     if (addressData) {
-      onEditAddress(newAddress);
+      onEditAddress(addressToSave);
     } else {
-      onAddAddress(newAddress);
+      onAddAddress(addressToSave);
     }
 
     resetForm(); // Reset form after submission
@@ -54,60 +54,64 @@ const AddressModal = ({ isOpen, onClose, onAddAddress, addressData, onEditAddres
     <div className="modal">
       <div className="modal-content">
         <h2>{addressData ? 'Edit Address' : 'Add Address'}</h2>
-        <div className="form-group">
-          <input
-            type="text"
-            id="address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-            placeholder=" "
-          />
-          <label htmlFor="address">Address</label>
+        <div className="form-row">
+          <div className="form-group">
+            <input
+              type="text"
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+              placeholder=" "
+            />
+            <label htmlFor="address">Address</label>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              id="subdistrict"
+              value={subdistrict}
+              onChange={(e) => setSubdistrict(e.target.value)}
+              required
+              placeholder=" "
+            />
+            <label htmlFor="subdistrict">Subdistrict</label>
+          </div>
         </div>
-        <div className="form-group">
-          <input
-            type="text"
-            id="subdistrict"
-            value={subdistrict}
-            onChange={(e) => setSubdistrict(e.target.value)}
-            required
-            placeholder=" "
-          />
-          <label htmlFor="subdistrict">Subdistrict</label>
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            id="district"
-            value={district}
-            onChange={(e) => setDistrict(e.target.value)}
-            required
-            placeholder=" "
-          />
-          <label htmlFor="district">District</label>
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            id="province"
-            value={province}
-            onChange={(e) => setProvince(e.target.value)}
-            required
-            placeholder=" "
-          />
-          <label htmlFor="province">Province</label>
-        </div>
-        <div className="form-group">
-          <input
-            type="text"
-            id="postalCode"
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-            required
-            placeholder=" "
-          />
-          <label htmlFor="postalCode">Postal Code</label>
+        <div className="form-row">
+          <div className="form-group">
+            <input
+              type="text"
+              id="district"
+              value={district}
+              onChange={(e) => setDistrict(e.target.value)}
+              required
+              placeholder=" "
+            />
+            <label htmlFor="district">District</label>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              id="province"
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+              required
+              placeholder=" "
+            />
+            <label htmlFor="province">Province</label>
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              id="postalCode"
+              value={zipCode}
+              onChange={(e) => setZipCode(e.target.value)}
+              required
+              placeholder=" "
+            />
+            <label htmlFor="postalCode">Postal Code</label>
+          </div>
         </div>
         <div className="modal-actions">
           <button onClick={handleSubmit} className="modal-button">

@@ -1,133 +1,198 @@
+/* ProfilePage.css */
+
 .profile-container {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+.nav-tabs {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center items horizontally */
-  justify-content: center; /* Center items vertically */
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
 }
 
 .profile-info {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px; /* Reduced padding */
-  width: 100%;
-  max-width: 600px;
-  text-align: center; /* Center text inside profile-info */
+  padding: 20px;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .profile-info h2 {
-  margin-top: 0;
-  font-size: 1.25rem; /* Slightly smaller font size */
-}
-
-.error-message {
-  color: #d9534f;
-  font-size: 0.875rem; /* Smaller font size */
-  margin-bottom: 15px; /* Reduced margin */
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .profile-info p {
-  margin: 4px 0; /* Reduced margin */
-  font-size: 0.875rem; /* Smaller font size */
+  margin: 5px 0;
+  font-size: 16px;
 }
 
-.profile-info button {
-  margin: 8px 4px; /* Reduced margin */
-  padding: 8px 12px; /* Smaller padding */
-  font-size: 0.875rem; /* Smaller font size */
+.profile-info h3 {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #333;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.add-address-button,
+.edit-address-button,
+.delete-address-button,
+.logout-button,
+.goto-admin-button,
+.view-user-list-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px;
   border: none;
-  border-radius: 4px; /* Slightly smaller border radius */
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.edit-address-button {
-  background-color: #ffb700;
-  color: #fff;
-}
-
-.edit-address-button:hover {
-  background-color: #e6a700;
-}
-
-.delete-address-button {
-  background-color: #d9534f;
-  color: #fff;
-}
-
-.delete-address-button:hover {
-  background-color: #c9302c;
+  transition: background-color 0.3s ease;
 }
 
 .add-address-button {
-  background-color: #5bc0de;
-  color: #fff;
+  background-color: #4CAF50;
+  color: white;
 }
 
 .add-address-button:hover {
-  background-color: #31b0d5;
+  background-color: #45a049;
 }
 
-.goto-admin-button {
-  background-color: #5cb85c;
-  color: #fff;
+.edit-address-button {
+  background-color: #ffa500;
+  color: white;
 }
 
-.goto-admin-button:hover {
-  background-color: #4cae4c;
+.edit-address-button:hover {
+  background-color: #ff9c00;
+}
+
+.delete-address-button {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-address-button:hover {
+  background-color: #c62828;
 }
 
 .logout-button {
-  background-color: #d9534f;
-  color: #fff;
+  background-color: #2196F3;
+  color: white;
 }
 
 .logout-button:hover {
-  background-color: #c9302c;
+  background-color: #1976D2;
 }
 
-.buttons-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center buttons horizontally */
-  gap: 8px; /* Reduced gap */
-  width: 100%;
-  margin-top: 15px; /* Reduced margin-top */
+.goto-admin-button {
+  background-color: #673AB7;
+  color: white;
 }
 
-.admin-buttons-container {
-  border-top: 2px solid #ddd; /* Separator line above admin buttons */
-  padding-top: 15px; /* Reduced padding */
+.goto-admin-button:hover {
+  background-color: #5e35b1;
 }
 
 .view-user-list-button {
-  padding: 8px 16px; /* Smaller padding */
-  border: none;
-  border-radius: 4px; /* Slightly smaller border radius */
-  cursor: pointer;
-  background-color: #4CAF50;
+  background-color: #009688;
   color: white;
-  font-size: 0.875rem; /* Smaller font size */
 }
 
-.profile-info-section {
+.view-user-list-button:hover {
+  background-color: #00897b;
+}
+
+.buttons-container {
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Center profile info horizontally */
-  gap: 15px; /* Reduced gap */
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.modal-close {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-footer button {
+  margin-left: 10px;
 }
 
 @media (max-width: 768px) {
-  .profile-info {
-    padding: 10px; /* Further reduced padding */
-    width: 90%;
+  .profile-container {
+    padding: 10px;
+    margin: 10px;
   }
 
-  .buttons-container {
-    flex-direction: column;
-    gap: 8px; /* Reduced gap */
+  .profile-info h2 {
+    font-size: 20px;
+  }
+
+  .profile-info p {
+    font-size: 14px;
+  }
+
+  .profile-info h3 {
+    font-size: 18px;
+  }
+
+  .add-address-button,
+  .edit-address-button,
+  .delete-address-button,
+  .logout-button,
+  .goto-admin-button,
+  .view-user-list-button {
+    font-size: 14px;
+    padding: 8px 16px;
   }
 }

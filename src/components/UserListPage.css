@@ -79,3 +79,57 @@ h2 {
     padding: 20px;
   }
 }
+
+
+/* UserListPage.css */
+
+.export-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.export-button:hover {
+  background-color: #0056b3;
+}
+
+/* UserListPage.css */
+.filter-section {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-section label {
+  font-size: 1rem;
+}
+
+.filter-section select {
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.export-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.export-button:hover {
+  background-color: #0056b3;
+}

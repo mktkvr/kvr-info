@@ -7,7 +7,6 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-section">
           <h3>Contact Us</h3>
-          <p>ที่อยู่ : 121 หมู่ 7 ต.น้ำอ้อม อ.เกษตรวิสัย จ.ร้อยเอ็ด 45150</p>
           <p>อีเมล : saranatai.10123@gmail.com</p>
           <p>เบอร์โทร : 062-172-5040</p>
         </div>
@@ -19,7 +18,7 @@ const Footer = () => {
         </div>
         <div className="footer-section">
           <h3>About Us</h3>
-          <p>We are dedicated to providing the best service possible. Learn more about our mission and values.</p>
+          <p>เรามุ่งมั่นที่จะมอบบริการที่ดีที่สุดเท่าที่จะเป็นไปได้</p>
         </div>
       </div>
       <div className="footer-bottom">

@@ -17,7 +17,7 @@ const AppDisplay = ({ groupedApps }) => {
 
   return (
     <div className="app-display">
-      <div className="filter-section">
+      <div className="filter-section-app">
         {['All', ...Object.keys(groupedApps)].map(type => (
           <button
             key={type}
