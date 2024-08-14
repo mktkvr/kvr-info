@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { storage } from './firebaseConfigStorage';
+import { storage } from '../../db/firebaseConfigStorage';
 import { ref, uploadBytes, getDownloadURL, listAll } from 'firebase/storage';
 import './UploadPage.css';
 

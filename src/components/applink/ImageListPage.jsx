@@ -1,6 +1,6 @@
 // src/components/ImageListPage.js
 import React, { useState, useEffect } from 'react';
-import { storage } from './firebaseConfigStorage';
+import { storage } from '../db/firebaseConfigStorage';
 import { ref, listAll, getDownloadURL } from 'firebase/storage';
 import './ImageListPage.css';
 

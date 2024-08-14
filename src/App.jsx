@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import LoginPage from './components/LoginPage';
-import RegisterPage from './components/RegisterPage';
-import ProfilePage from './components/ProfilePage';
+import LoginPage from './components/login&register/LoginPage';
+import RegisterPage from './components//login&register/RegisterPage';
+import ProfilePage from './components/profile/ProfilePage';
 import Navbar from './components/Navbar';
-import AdminPage from './components/AdminPage';
-import UserListPage from './components/UserListPage';
+import AdminPage from './components/admin/AdminPage';
+import UserListPage from './components/admin/user/UserListPage';
 import OCRPage from './components/OCRPage';
-import UploadPage from './components/UploadPage';
-import ImageListPage from './components/ImageListPage';
-import { db } from './components/firebaseConfig';
+import UploadPage from './components/admin/applink/UploadPage';
+import ImageListPage from './components/applink/ImageListPage';
+import { db } from './components/db/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import AppDisplay from './components/AppDisplay';
+import AppDisplay from './components/applink/AppDisplay';
 import ProtectedRoute from './components/ProtectedRoute';
 import CoverSheetPage from './components/CoverSheetPage';
 import Footer from './components/Footer';
-
+import PdfToTextPage from './components/pages/PdfToTextPage';
 import './App.css';
 
 // Create a component to manage route saving
@@ -116,6 +116,7 @@ const App = () => {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/user-list" element={<UserListPage />} />
             <Route path="/cover-sheet" element={<CoverSheetPage />} />
+            <Route path="/pdf-to-text" element={<PdfToTextPage />} />
             <Route path="/app" element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <AppDisplay groupedApps={groupedApps} />

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { db } from './firebaseConfig';
+import { db } from './db/firebaseConfig';
 import { jsPDF } from 'jspdf';
 import './CoverSheetPage.css';
-import ConfirmationModal from './ConfirmationModal';
+import ConfirmationModal from './admin/ConfirmationModal';
 import thSarabunFont from './fonts/THSarabunNew-base64';
+
 
 const CoverSheetPage = () => {
   const [coverSheets, setCoverSheets] = useState([]);
@@ -13,10 +14,21 @@ const CoverSheetPage = () => {
     senderName: '',
     senderPhone: '',
     senderAddress: '',
+    senderSubDistrict: '',
+    senderDistrict: '',
+    senderProvince: '',
+    senderPostalCode: '',
     recipientName: '',
     recipientPhone: '',
-    recipientAddress: ''
+    recipientAddress: '',
+    recipientSubDistrict: '',
+    recipientDistrict: '',
+    recipientProvince: '',
+    recipientPostalCode: ''
   });
+  
+  const [isEditing, setIsEditing] = useState(false); // Track whether editing an existing cover sheet
+  const [editCoverSheetId, setEditCoverSheetId] = useState(null); // Store the ID of the cover sheet being edited
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [selectedCoverSheetIds, setSelectedCoverSheetIds] = useState([]);
   const [selectedCoverSheet, setSelectedCoverSheet] = useState(null);
@@ -25,6 +37,20 @@ const CoverSheetPage = () => {
   useEffect(() => {
     fetchCoverSheets();
   }, []);
+
+  const openAddCoverSheetModal = () => {
+    setNewCoverSheet({
+      senderName: '',
+      senderPhone: '',
+      senderAddress: '',
+      recipientName: '',
+      recipientPhone: '',
+      recipientAddress: ''
+    });
+    setIsEditing(false);
+    setEditCoverSheetId(null);
+    setIsModalOpen(true);
+  };
 
   const fetchCoverSheets = async () => {
     try {
@@ -45,8 +71,19 @@ const CoverSheetPage = () => {
   const handleAddCoverSheet = async () => {
     try {
       const coverSheetsCollection = collection(db, "coverSheets");
-      const docRef = await addDoc(coverSheetsCollection, newCoverSheet);
-      setCoverSheets(prev => [...prev, { id: docRef.id, ...newCoverSheet }]);
+
+      if (isEditing) {
+        // Update existing cover sheet
+        const coverSheetRef = doc(db, "coverSheets", editCoverSheetId);
+        await updateDoc(coverSheetRef, newCoverSheet);
+        setCoverSheets(prev => prev.map(sheet => sheet.id === editCoverSheetId ? { id: editCoverSheetId, ...newCoverSheet } : sheet));
+      } else {
+        // Add new cover sheet
+        const docRef = await addDoc(coverSheetsCollection, newCoverSheet);
+        setCoverSheets(prev => [...prev, { id: docRef.id, ...newCoverSheet }]);
+      }
+
+      // Reset state and close modal
       setNewCoverSheet({
         senderName: '',
         senderPhone: '',
@@ -55,11 +92,14 @@ const CoverSheetPage = () => {
         recipientPhone: '',
         recipientAddress: ''
       });
+      setIsEditing(false);
+      setEditCoverSheetId(null);
       setIsModalOpen(false);
     } catch (error) {
-      console.error("Error adding cover sheet: ", error);
+      console.error("Error adding/editing cover sheet: ", error);
     }
   };
+  
 
   const validateCoverSheet = (coverSheet) => {
     const errors = [];
@@ -78,91 +118,75 @@ const CoverSheetPage = () => {
     );
   };
 
+
+
   const generatePDFs = async (coverSheets) => {
     if (coverSheets.length === 0) return; // No cover sheets to generate PDFs
-
+  
     const doc = new jsPDF('p', 'mm', [100, 150]);
-
+  
     doc.addFileToVFS('THSarabunNew.ttf', thSarabunFont);
     doc.addFont('THSarabunNew.ttf', 'THSarabun', 'normal');
     doc.setFont('THSarabun');
-    doc.setFontSize(18);
-    doc.setTextColor(50, 50, 50);
-
-    for (const coverSheet of coverSheets) {
-      if (coverSheets.indexOf(coverSheet) > 0) {
-        doc.addPage();
-      }
-
-      const errors = validateCoverSheet(coverSheet);
-      if (errors.length > 0) {
-        doc.text(`Error: ${errors.join(', ')}`, 10, 10);
-        continue; // Skip this cover sheet if there are validation errors
-      }
-
+    
+    coverSheets.forEach((coverSheet, index) => {
+      if (index > 0) doc.addPage();
+  
       const margin = 10;
-      const lineHeight = 8;
+      const lineHeight = 8; // Increased line height for readability
       let cursorY = margin;
-
+  
       // Title
-      doc.setFontSize(20);
-      doc.setTextColor(30, 30, 30);
+      doc.setFontSize(16); // Increased font size for title
+      doc.setTextColor(0, 0, 0);
       doc.text("Shipping Label", margin, cursorY);
-      
-      cursorY += lineHeight + 4;
-
+      cursorY += lineHeight + 0; // Increased space after title
+  
       // Divider line
       doc.setLineWidth(0.5);
       doc.setDrawColor(150, 150, 150);
       doc.line(margin, cursorY, 90, cursorY);
-      cursorY += 4;
-
+      cursorY += 10;
+  
       // Sender Information
-      doc.setFontSize(16);
+      doc.setFontSize(16); // Increased font size for section headers
       doc.setTextColor(50, 50, 50);
-      doc.text(`Sender Information:`, margin, cursorY);
+      doc.text("ผู้ส่ง:", margin, cursorY);
       cursorY += lineHeight;
-
-      doc.setFontSize(14);
-      doc.text(`Name: ${coverSheet.senderName}`, margin, cursorY);
+  
+      doc.setFontSize(14); // Increased font size for content
+      doc.text(`${coverSheet.senderName} ${coverSheet.senderPhone}`, margin, cursorY);
       cursorY += lineHeight;
-      doc.text(`Phone: ${coverSheet.senderPhone}`, margin, cursorY);
-      cursorY += lineHeight;
-      doc.text(`Address: ${coverSheet.senderAddress}`, margin, cursorY);
-      cursorY += lineHeight + 4;
-
+      doc.text(`${coverSheet.senderAddress}`, margin, cursorY);
+      cursorY += lineHeight + 10; // Increased space after section
+  
       // Divider line
       doc.setLineWidth(0.5);
       doc.setDrawColor(150, 150, 150);
       doc.line(margin, cursorY, 90, cursorY);
-      cursorY += 4;
-
+      cursorY += 10;
+  
       // Recipient Information
-      doc.setFontSize(16);
+      doc.setFontSize(16); // Increased font size for section headers
       doc.setTextColor(50, 50, 50);
-      doc.text(`Recipient Information:`, margin, cursorY);
+      doc.text("ผู้รับ:", margin, cursorY);
       cursorY += lineHeight;
-
-      doc.setFontSize(14);
-      doc.text(`Name: ${coverSheet.recipientName}`, margin, cursorY);
+  
+      doc.setFontSize(14); // Increased font size for content
+      doc.text(`${coverSheet.recipientName} ${coverSheet.recipientPhone}`, margin, cursorY);
       cursorY += lineHeight;
-      doc.text(`Phone: ${coverSheet.recipientPhone}`, margin, cursorY);
-      cursorY += lineHeight;
-      doc.text(`Address: ${coverSheet.recipientAddress}`, margin, cursorY);
-      cursorY += lineHeight;
-
+      doc.text(`${coverSheet.recipientAddress}`, margin, cursorY);
+      cursorY += lineHeight + 10; // Increased space after section
+  
       // Footer with a small note
-      cursorY += lineHeight + 8;
-      doc.setFontSize(12);
+      doc.setFontSize(10); // Font size for footer
       doc.setTextColor(100, 100, 100);
-      doc.text("Thank you for using our service.", margin, cursorY);
-
-      // Update cover sheet status to printed
-      await handlePrintStatusChange(coverSheet.id, true);
-    }
-
+      doc.text("Thank you.", margin, cursorY);
+    });
+  
     doc.output('dataurlnewwindow');
   };
+
 
   const handlePrintStatusChange = async (id, printed, generatePdf = false) => {
     try {
@@ -183,128 +207,131 @@ const CoverSheetPage = () => {
     }
   };
   
+  const handleEditCoverSheet = (coverSheet) => {
+    setNewCoverSheet(coverSheet);
+    setIsEditing(true);
+    setEditCoverSheetId(coverSheet.id);
+    setIsModalOpen(true);
+  };
+  
   
 
-  const handleFilterChange = (status) => {
-    setFilterStatus(status);
-  };
-
   const filteredCoverSheets = coverSheets.filter(sheet => {
-    if (filterStatus === 'all') return true;
     if (filterStatus === 'printed') return sheet.printed;
     if (filterStatus === 'notPrinted') return !sheet.printed;
     return true;
   });
 
-  const openConfirmationModal = (coverSheet) => {
-    setSelectedCoverSheet(coverSheet);
-    setIsConfirmationModalOpen(true);
-  };
-
-  const handleConfirm = async () => {
-    if (selectedCoverSheet) {
-      await deleteCoverSheet(selectedCoverSheet.id);
-      setCoverSheets(prev => prev.filter(sheet => sheet.id !== selectedCoverSheet.id));
-    }
-    setIsConfirmationModalOpen(false);
-  };
-
-  const deleteCoverSheet = async (id) => {
-    try {
-      const coverSheetRef = doc(db, "coverSheets", id);
-      await deleteDoc(coverSheetRef);
-    } catch (error) {
-      console.error("Error deleting cover sheet: ", error);
-    }
-  };
-
-  const handlePrintAndGeneratePDF = async (id) => {
-    try {
-      const coverSheetRef = doc(db, "coverSheets", id);
-      await updateDoc(coverSheetRef, { printed: true });
-      
-      const updatedCoverSheets = coverSheets.map(sheet => sheet.id === id ? { ...sheet, printed: true } : sheet);
-      setCoverSheets(updatedCoverSheets);
-      
-      const selectedCoverSheet = updatedCoverSheets.find(sheet => sheet.id === id);
-      if (selectedCoverSheet) {
-        generatePDFs([selectedCoverSheet]); // Generate PDF only for the printed cover sheet
-      }
-    } catch (error) {
-      console.error("Error printing and generating PDF: ", error);
-    }
-  };
-
   return (
-    <div className="cover-sheet-container">
+    <div className="cover-sheet-page">
       <h2>Cover Sheets</h2>
-      <button className="add-cover-sheet-button" onClick={() => setIsModalOpen(true)}>
-        Add Cover Sheet
-      </button>
-      {selectedCoverSheetIds.length > 0 && (
-        <button
-          className="generate-pdfs-button"
-          onClick={() => {
-            const selectedCoverSheets = coverSheets.filter(sheet => selectedCoverSheetIds.includes(sheet.id));
-            generatePDFs(selectedCoverSheets);
-          }}
-        >
-          Generate PDFs
-        </button>
-      )}
-      <div className="filter-buttons">
-        <button onClick={() => handleFilterChange('all')}>All</button>
-        <button onClick={() => handleFilterChange('printed')}>Printed</button>
-        <button onClick={() => handleFilterChange('notPrinted')}>Not Printed</button>
+      <div className='filter-buttons'>
+        <button onClick={openAddCoverSheetModal}>Add Cover Sheet</button>
+        <button onClick={() => generatePDFs(filteredCoverSheets.filter(sheet => selectedCoverSheetIds.includes(sheet.id)))}>Generate PDF</button>
       </div>
-      <ul className="cover-sheet-list">
+
+
+      
+      <div className="filter-buttons">
+        <button onClick={() => setFilterStatus('all')} className={filterStatus === 'all' ? 'active' : ''}>All</button>
+        <button onClick={() => setFilterStatus('printed')} className={filterStatus === 'printed' ? 'active' : ''}>Printed</button>
+        <button onClick={() => setFilterStatus('notPrinted')} className={filterStatus === 'notPrinted' ? 'active' : ''}>Not Printed</button>
+      </div>
+      <table className="cover-sheet-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Sender Name</th>
+            <th>Recipient Name</th>
+            <th>Printed</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
         {filteredCoverSheets.map(sheet => (
-          <li key={sheet.id} className="cover-sheet-item">
-          <input
-            type="checkbox"
-            checked={selectedCoverSheetIds.includes(sheet.id)}
-            onChange={() => handleCheckboxChange(sheet.id)}
-          />
-          <div>
-            <p><strong>Sender:</strong> {sheet.senderName} - {sheet.senderPhone}</p>
-            <p><strong>Address:</strong> {sheet.senderAddress}</p>
-            <p><strong>Recipient:</strong> {sheet.recipientName} - {sheet.recipientPhone}</p>
-            <p><strong>Address:</strong> {sheet.recipientAddress}</p>
-            <p><strong>Status:</strong> {sheet.printed ? 'Printed' : 'Not Printed'}</p>
-            <button
-              className="print-button"
-              onClick={() => handlePrintStatusChange(sheet.id, true, true)}
-            >
-              Print
-            </button>
-            <button className="delete-button" onClick={() => openConfirmationModal(sheet)}>
-              Delete
-            </button>
-          </div>
-        </li>
+          <tr
+            key={sheet.id}
+            onClick={() => handleCheckboxChange(sheet.id)}
+            className={selectedCoverSheetIds.includes(sheet.id) ? 'selected' : ''}
+          >
+            <td>
+              <input
+                type="checkbox"
+                checked={selectedCoverSheetIds.includes(sheet.id)}
+                onChange={() => handleCheckboxChange(sheet.id)}
+                onClick={(e) => e.stopPropagation()} // ป้องกันไม่ให้ checkbox ถูกเลือกโดยอัตโนมัติเมื่อคลิกที่แถว
+              />
+            </td>
+            <td>{sheet.senderName}</td>
+            <td>{sheet.recipientName}</td>
+            <td>{sheet.printed ? 'Yes' : 'No'}</td>
+            <td>
+              <button onClick={(e) => { e.stopPropagation(); handleEditCoverSheet(sheet); }}>Edit</button>
+              <button onClick={(e) => { e.stopPropagation(); handlePrintStatusChange(sheet.id, !sheet.printed, true); }}>
+                {sheet.printed ? 'Reprint' : 'Print'}
+              </button>
+            </td>
+          </tr>
         ))}
-      </ul>
-      {isModalOpen && (
-        <div className="modal">
-          <h2>Add Cover Sheet</h2>
-          <form onSubmit={(e) => { e.preventDefault(); handleAddCoverSheet(); }}>
-            <input type="text" name="senderName" value={newCoverSheet.senderName} onChange={handleChange} placeholder="Sender Name" maxLength="50" required />
-            <input type="text" name="senderPhone" value={newCoverSheet.senderPhone} onChange={handleChange} placeholder="Sender Phone" maxLength="10" pattern="\d*" required />
-            <textarea name="senderAddress" value={newCoverSheet.senderAddress} onChange={handleChange} placeholder="Sender Address" required></textarea>
-            <input type="text" name="recipientName" value={newCoverSheet.recipientName} onChange={handleChange} placeholder="Recipient Name" maxLength="50" required />
-            <input type="text" name="recipientPhone" value={newCoverSheet.recipientPhone} onChange={handleChange} placeholder="Recipient Phone" maxLength="10" pattern="\d*" required />
-            <textarea name="recipientAddress" value={newCoverSheet.recipientAddress} onChange={handleChange} placeholder="Recipient Address" required></textarea>
-            <button type="submit">Add</button>
-            <button type="button" onClick={() => setIsModalOpen(false)}>Cancel</button>
-          </form>
-        </div>
-      )}
-      {isConfirmationModalOpen && selectedCoverSheet && (
-        <ConfirmationModal
-          onConfirm={handleConfirm}
-          onCancel={() => setIsConfirmationModalOpen(false)}
+      </tbody>
+
+      </table>
+
+      
+  {isModalOpen && (
+    <div className="modal">
+      <div className="modal-content">
+        <h3>{isEditing ? 'Edit Cover Sheet' : 'Add Cover Sheet'}</h3>
+        <input
+          type="text"
+          name="senderName"
+          placeholder="Sender Name"
+          value={newCoverSheet.senderName}
+          onChange={handleChange}
         />
-      )}
+        <input
+          type="text"
+          name="senderPhone"
+          placeholder="Sender Phone"
+          value={newCoverSheet.senderPhone}
+          onChange={handleChange}
+        />
+        <textarea
+          name="senderAddress"
+          placeholder="Sender Address"
+          value={newCoverSheet.senderAddress}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="recipientName"
+          placeholder="Recipient Name"
+          value={newCoverSheet.recipientName}
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="recipientPhone"
+          placeholder="Recipient Phone"
+          value={newCoverSheet.recipientPhone}
+          onChange={handleChange}
+        />
+        <textarea
+          name="recipientAddress"
+          placeholder="Recipient Address"
+          value={newCoverSheet.recipientAddress}
+          onChange={handleChange}
+        />
+        <button onClick={handleAddCoverSheet}>{isEditing ? 'Save Changes' : 'Add Cover Sheet'}</button>
+        <button onClick={() => {
+          setIsModalOpen(false);
+          setIsEditing(false);
+          setEditCoverSheetId(null);
+        }}>Cancel</button>
+      </div>
+    </div>
+  )}
+
     </div>
   );
 };

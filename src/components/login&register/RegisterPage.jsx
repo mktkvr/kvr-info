@@ -1,7 +1,7 @@
 // components/RegisterPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from './firebaseConfig';
+import { db } from '../db/firebaseConfig';
 import { collection, setDoc, doc, query, where, getDocs } from 'firebase/firestore';
 import './Auth.css';
 

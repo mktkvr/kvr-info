@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from './firebaseConfig';
+import { db } from '../db/firebaseConfig';
 import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
 import AddressModal from './AddressModal';
-import ConfirmationModal from './ConfirmationModal';
+import ConfirmationModal from '../admin/ConfirmationModal';
 import './ProfilePage.css';
 
 const ProfilePage = ({ onLogout }) => {
@@ -149,6 +149,10 @@ const ProfilePage = ({ onLogout }) => {
     navigate('/cover-sheet'); // Navigate to the Cover Sheet page
   };
 
+  const navigateToPDFToText = () => {
+    navigate('/pdf-to-text'); // Navigate to the PDFToText page
+  };
+
   return (
     <div className="profile-container">
       <div className="nav-tabs">
@@ -187,6 +191,7 @@ const ProfilePage = ({ onLogout }) => {
               </>
             )}
             <button onClick={navigateToCoverSheet} className="cover-sheet-button">Cover Page</button> {/* Added Button */}
+            <button onClick={navigateToPDFToText} className="cover-sheet-button">pdfToText</button> {/* Added Button */}
           </div>
         </div>
       </div>

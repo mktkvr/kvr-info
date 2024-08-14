@@ -3,7 +3,7 @@ import './AdminPage.css';
 import EditModal from './EditModal';
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 import ModalForm from './ModalForm';
-import { db } from './firebaseConfig';
+import { db } from '../db/firebaseConfig';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "firebase/firestore";
 
 const AdminPage = () => {

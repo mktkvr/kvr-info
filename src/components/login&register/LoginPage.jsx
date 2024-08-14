@@ -1,7 +1,7 @@
 // components/LoginPage.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db } from './firebaseConfig'; // Import Firebase config
+import { db } from '../db/firebaseConfig'; // Import Firebase config
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import './Auth.css'; // Import the CSS file
 
