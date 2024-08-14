@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
+import ConfirmLogoutModal from './profile/ConfirmLogoutModal'; // Import the modal component
 
 const Navbar = ({ onHomeClick, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const userType = localStorage.getItem('userType'); // Assuming you store userType in localStorage
+  const loggedInUser = localStorage.getItem('loggedInUser'); // Assuming you store loggedInUser in localStorage
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleHomeClick = () => {
     onHomeClick();
@@ -25,8 +29,29 @@ const Navbar = ({ onHomeClick, onLogout }) => {
   };
 
   const handleLogoutClick = () => {
-    onLogout(); // Call the logout handler
-    navigate('/login'); // Redirect to login page after logout
+    setIsModalOpen(true); // Open the modal on logout button click
+  };
+
+  const handleLogoutConfirm = () => {
+    setIsModalOpen(false);
+    onLogout();
+    navigate('/login');
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const navigateToCoverSheet = () => {
+    navigate('/cover-sheet');
+  };
+
+  const navigateToPDFToText = () => {
+    navigate('/pdf-to-text');
+  };
+
+  const navigateToUserList = () => {
+    navigate('/user-list');
   };
 
   return (
@@ -45,25 +70,48 @@ const Navbar = ({ onHomeClick, onLogout }) => {
         >
           OCR
         </button>
-        {localStorage.getItem('loggedInUser') && (
-          <>
+        <button
+          onClick={navigateToCoverSheet}
+          className={`nav-button ${location.pathname === '/cover-sheet' ? 'active' : ''}`}
+        >
+          Cover Page
+        </button>
+        <button
+          onClick={navigateToPDFToText}
+          className={`nav-button ${location.pathname === '/pdf-to-text' ? 'active' : ''}`}
+        >
+          PDF to Text
+        </button>
+        {loggedInUser && (
+          <div className="profile-dropdown">
             <button
               onClick={handleProfileClick}
               className={`nav-button ${location.pathname === '/profile' ? 'active' : ''}`}
             >
               Profile
             </button>
-            {userType === 'admin' && (
+            <div className="dropdown-menu">
               <button
-                onClick={handleAdminPageClick}
-                className={`nav-button ${location.pathname === '/admin' ? 'active' : ''}`}
+                onClick={() => navigate('/profile')}
+                className={`dropdown-item ${location.pathname === '/profile' ? 'active' : ''}`}
               >
-                Admin Page
+                View Profile
               </button>
-            )}
-          </>
+              <button
+                onClick={handleLogoutClick}
+                className="dropdown-item"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
         )}
       </div>
+      <ConfirmLogoutModal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onConfirm={handleLogoutConfirm}
+      />
     </nav>
   );
 };

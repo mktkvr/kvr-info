@@ -77,7 +77,7 @@
 
 .navbar-links a:hover {
   color: #333; /* Dark text on hover for contrast */
-  background-color: #ff0040; /* Yellow background on hover */
+  background-color: #ff0055; /* Yellow background on hover */
   transform: scale(1.05); /* Slightly enlarge the element on hover */
   z-index: 2; /* Ensure it stays above the gradient */
 }
@@ -122,4 +122,42 @@
     width: 100%;
     padding: 12px 0; /* Increase padding for better touch targets */
   }
+}
+
+
+.profile-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #444;
+  border: 1px solid #555;
+  z-index: 1000;
+  min-width: 160px;
+}
+
+.profile-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background-color: #555;
+}
+
+.dropdown-item.active {
+  font-weight: bold;
 }
