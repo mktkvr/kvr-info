@@ -6,17 +6,18 @@ import ProfilePage from './components/profile/ProfilePage';
 import Navbar from './components/Navbar';
 import AdminPage from './components/admin/AdminPage';
 import UserListPage from './components/admin/user/UserListPage';
-import OCRPage from './components/OCRPage';
+import OCRPage from './components/other/OCRPage';
 import UploadPage from './components/admin/applink/UploadPage';
 import ImageListPage from './components/applink/ImageListPage';
 import { db } from './components/db/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import AppDisplay from './components/applink/AppDisplay';
 import ProtectedRoute from './components/ProtectedRoute';
-import CoverSheetPage from './components/CoverSheetPage';
+import CoverSheetPage from './components/other/CoverSheetPage';
 import Footer from './components/Footer';
-import PdfToTextPage from './components/pages/PdfToTextPage';
+import PdfToTextPage from './components/other/pages/PdfToTextPage';
 import './App.css';
+import Uploadimg from './components/uploadimg/Uploadimg';
 
 // Create a component to manage route saving
 const RouteManager = ({ children }) => {
@@ -117,6 +118,7 @@ const App = () => {
             <Route path="/user-list" element={<UserListPage />} />
             <Route path="/cover-sheet" element={<CoverSheetPage />} />
             <Route path="/pdf-to-text" element={<PdfToTextPage />} />
+            <Route path="/upimg" element={<Uploadimg />} />
             <Route path="/app" element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <AppDisplay groupedApps={groupedApps} />

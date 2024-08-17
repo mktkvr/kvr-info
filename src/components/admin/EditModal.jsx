@@ -76,6 +76,20 @@ const EditModal = ({ app, onSave, onClose }) => {
           >
             Report
           </button>
+          <button 
+              type="button" 
+              className={`type-button ${type === 'Shop' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('Shop')}
+            >
+              Shop
+            </button>
+            <button 
+              type="button" 
+              className={`type-button ${type === 'Other' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('Other')}
+            >
+              Other
+            </button>
         </div>
         <div className="modal-buttons">
           <button onClick={handleSave} className="submit-button">Save Changes</button>

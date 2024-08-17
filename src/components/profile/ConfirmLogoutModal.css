@@ -1,44 +1,81 @@
 /* ConfirmLogoutModal.css */
+
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
   }
-  
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  .modal-buttons {
-    margin-top: 20px;
-  }
-  
-  .modal-button {
-    border: none;
-    padding: 10px 20px;
-    margin: 0 5px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .confirm {
-    background-color: #28a745;
-    color: white;
-  }
-  
-  .cancel {
-    background-color: #dc3545;
-    color: white;
-  }
-  
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.modal-content p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #666;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.modal-button {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.confirm {
+  background-color: #28a745;
+  color: white;
+}
+
+.confirm:hover {
+  background-color: #218838;
+}
+
+.cancel {
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancel:hover {
+  background-color: #c82333;
+}

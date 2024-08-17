@@ -137,22 +137,6 @@ const ProfilePage = ({ onLogout }) => {
     setIsConfirmationModalOpen(true);
   };
 
-  const navigateToAdminPage = () => {
-    navigate('/admin');
-  };
-
-  const navigateToUserList = () => {
-    navigate('/user-list'); // Navigate to the User List page
-  };
-
-  const navigateToCoverSheet = () => {
-    navigate('/cover-sheet'); // Navigate to the Cover Sheet page
-  };
-
-  const navigateToPDFToText = () => {
-    navigate('/pdf-to-text'); // Navigate to the PDFToText page
-  };
-
   return (
     <div className="profile-container">
       <div className="nav-tabs">
@@ -180,19 +164,6 @@ const ProfilePage = ({ onLogout }) => {
           ) : (
             <p>Loading...</p>
           )}
-        </div>
-        <div className="admin-buttons">
-          <div className="buttons-container">
-            <button onClick={handleLogout} className="modal-button logout-button">Logout</button>
-            {userData && userData.userType === 'admin' && (
-              <>
-                <button onClick={navigateToAdminPage} className="goto-admin-button">Go to Admin Page</button>
-                <button onClick={navigateToUserList} className="view-user-list-button">View User List</button>
-              </>
-            )}
-            <button onClick={navigateToCoverSheet} className="cover-sheet-button">Cover Page</button> {/* Added Button */}
-            <button onClick={navigateToPDFToText} className="cover-sheet-button">pdfToText</button> {/* Added Button */}
-          </div>
         </div>
       </div>
 

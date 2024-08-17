@@ -80,6 +80,20 @@ const ModalForm = ({ onSubmit, onClose, editIndex }) => {
             >
               Report
             </button>
+            <button 
+              type="button" 
+              className={`type-button ${type === 'Shop' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('Shop')}
+            >
+              Shop
+            </button>
+            <button 
+              type="button" 
+              className={`type-button ${type === 'Other' ? 'active' : ''}`}
+              onClick={() => handleTypeChange('Other')}
+            >
+              Other
+            </button>
           </div>
           <div className="modal-buttons">
             <button type="submit" className="submit-button">

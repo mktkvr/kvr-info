@@ -15,18 +15,19 @@ const Navbar = ({ onHomeClick, onLogout }) => {
     onHomeClick();
     navigate('/app');
   };
+  const handleUpimgClick = () => {
+    onHomeClick();
+    navigate('/upimg');
+  };
 
-  const handleOCRClick = () => {
-    navigate('/ocr');
+  const handleOtherClick = () => {
+    navigate('/Other');
   };
 
   const handleProfileClick = () => {
     navigate('/profile');
   };
 
-  const handleAdminPageClick = () => {
-    navigate('/admin');
-  };
 
   const handleLogoutClick = () => {
     setIsModalOpen(true); // Open the modal on logout button click
@@ -42,17 +43,6 @@ const Navbar = ({ onHomeClick, onLogout }) => {
     setIsModalOpen(false);
   };
 
-  const navigateToCoverSheet = () => {
-    navigate('/cover-sheet');
-  };
-
-  const navigateToPDFToText = () => {
-    navigate('/pdf-to-text');
-  };
-
-  const navigateToUserList = () => {
-    navigate('/user-list');
-  };
 
   return (
     <nav className="navbar">
@@ -65,6 +55,42 @@ const Navbar = ({ onHomeClick, onLogout }) => {
           Home
         </button>
         <button
+          onClick={handleUpimgClick}
+          className={`nav-button ${location.pathname === '/upimg' ? 'active' : ''}`}
+        >
+          UploadImage
+        </button>
+        {loggedInUser && (
+          <div className="profile-dropdown">
+            <button
+              // onClick={handleOtherClick}
+              className={`nav-button ${location.pathname === '/Menu' ? 'active' : ''}`}
+            >
+              Other
+            </button>
+            <div className="dropdown-menu">
+              <button
+                onClick={() => navigate('/ocr')}
+                className={`dropdown-item ${location.pathname === '/ocr' ? 'active' : ''}`}
+              >
+                OCR
+              </button>
+              <button
+                onClick={() => navigate('/cover-sheet')}
+                className={`dropdown-item ${location.pathname === '/cover-sheet' ? 'active' : ''}`}
+              >
+                Cover Page
+              </button>
+              <button
+                onClick={() => navigate('/pdf-to-text')}
+                className={`dropdown-item ${location.pathname === '/pdf-to-text' ? 'active' : ''}`}
+              >
+                PDF to Text
+              </button>
+            </div>
+          </div>
+        )}
+        {/* <button
           onClick={handleOCRClick}
           className={`nav-button ${location.pathname === '/ocr' ? 'active' : ''}`}
         >
@@ -81,7 +107,7 @@ const Navbar = ({ onHomeClick, onLogout }) => {
           className={`nav-button ${location.pathname === '/pdf-to-text' ? 'active' : ''}`}
         >
           PDF to Text
-        </button>
+        </button> */}
         {loggedInUser && (
           <div className="profile-dropdown">
             <button
@@ -96,6 +122,18 @@ const Navbar = ({ onHomeClick, onLogout }) => {
                 className={`dropdown-item ${location.pathname === '/profile' ? 'active' : ''}`}
               >
                 View Profile
+              </button>
+              <button
+                onClick={() => navigate('/admin')}
+                className={`dropdown-item ${location.pathname === '/admin' ? 'active' : ''}`}
+              >
+                Admin Page
+              </button>
+              <button
+                onClick={() => navigate('/user-list')}
+                className={`dropdown-item ${location.pathname === '/user-list' ? 'active' : ''}`}
+              >
+                User List
               </button>
               <button
                 onClick={handleLogoutClick}

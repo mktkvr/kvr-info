@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { db } from './db/firebaseConfig';
+import { db } from '../db/firebaseConfig';
 import { jsPDF } from 'jspdf';
 import './CoverSheetPage.css';
-import ConfirmationModal from './admin/ConfirmationModal';
-import thSarabunFont from './fonts/THSarabunNew-base64';
+import ConfirmationModal from '../admin/ConfirmationModal';
+import thSarabunFont from '../fonts/THSarabunNew-base64';
 
 
 const CoverSheetPage = () => {
