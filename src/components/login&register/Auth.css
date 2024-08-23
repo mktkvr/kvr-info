@@ -65,17 +65,24 @@
   border-radius: 3px;
 }
 
-.auth-button {
-  background-color: #007bff;
+/* General Button Styles */
+.button {
   color: #fff;
   border: none;
-  padding: 12px;
+  padding: 12px 20px; /* Adjusted padding for better button size */
   border-radius: 4px;
   cursor: pointer;
   font-size: 0.875rem;
   transition: background-color 0.3s, transform 0.2s;
   margin-top: 10px;
+  text-align: center;
+  display: inline-block;
   width: 100%;
+}
+
+/* Auth Button Styles */
+.auth-button {
+  background-color: #007bff;
 }
 
 .auth-button:hover {
@@ -86,66 +93,20 @@
   transform: scale(0.98);
 }
 
-.login-button {
+/* Register Button Styles */
+.register-button {
   background-color: #28a745;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: background-color 0.3s, transform 0.2s;
-  margin-top: 10px;
-  width: 100%;
 }
 
-.login-button:hover {
+.register-button:hover {
   background-color: #218838;
 }
 
-.login-button:active {
+.register-button:active {
   transform: scale(0.98);
 }
 
-/* components/Auth.css */
-.auth-button,
-.register-button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 12px 20px; /* Adjusted padding for better button size */
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.875rem;
-    transition: background-color 0.3s, transform 0.2s;
-    margin-top: 10px;
-    text-align: center;
-    display: inline-block;
-}
-
-.auth-button:hover,
-.register-button:hover {
-    background-color: #0056b3; /* Darker shade for hover effect */
-}
-
-.auth-button:active,
-.register-button:active {
-    transform: scale(0.98); /* Slightly scale down on click */
-}
-
-/* Specific style for register-button to differentiate from auth-button */
-.register-button {
-    background-color: #28a745;
-}
-
-.register-button:hover {
-    background-color: #218838; /* Darker green for hover effect */
-}
-
-.register-button:active {
-    transform: scale(0.98); /* Slightly scale down on click */
-}
-
+/* Error and Success Messages */
 .error-message {
   color: red;
   text-align: center;

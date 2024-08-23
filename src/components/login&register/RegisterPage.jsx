@@ -117,7 +117,7 @@ const RegisterPage = () => {
         </div>
         <button type="submit" className="auth-button">Register</button>
       </form>
-      <button type="button" className="login-button" onClick={handleLoginClick}>
+      <button type="button" className="register-button" onClick={handleLoginClick}>
         Already have an account? Login
       </button>
     </div>

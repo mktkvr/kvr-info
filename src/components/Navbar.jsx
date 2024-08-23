@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import ConfirmLogoutModal from './profile/ConfirmLogoutModal'; // Import the modal component
@@ -6,18 +6,29 @@ import ConfirmLogoutModal from './profile/ConfirmLogoutModal'; // Import the mod
 const Navbar = ({ onHomeClick, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const userType = localStorage.getItem('userType'); // Assuming you store userType in localStorage
+  const [userType, setUserType] = useState('');
   const loggedInUser = localStorage.getItem('loggedInUser'); // Assuming you store loggedInUser in localStorage
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    // Fetch userType from localStorage and update state
+    const storedUserType = localStorage.getItem('userType');
+    setUserType(storedUserType);
+    console.log('User Type:', storedUserType); // Debugging line
+  }, []);
 
   const handleHomeClick = () => {
     onHomeClick();
     navigate('/app');
   };
+
   const handleUpimgClick = () => {
-    onHomeClick();
     navigate('/upimg');
+  };
+
+  const handleNoteClick = () => {
+    navigate('/notes');
   };
 
   const handleOtherClick = () => {
@@ -27,7 +38,6 @@ const Navbar = ({ onHomeClick, onLogout }) => {
   const handleProfileClick = () => {
     navigate('/profile');
   };
-
 
   const handleLogoutClick = () => {
     setIsModalOpen(true); // Open the modal on logout button click
@@ -43,7 +53,6 @@ const Navbar = ({ onHomeClick, onLogout }) => {
     setIsModalOpen(false);
   };
 
-
   return (
     <nav className="navbar">
       <div className="navbar-logo">MyApp</div>
@@ -58,7 +67,13 @@ const Navbar = ({ onHomeClick, onLogout }) => {
           onClick={handleUpimgClick}
           className={`nav-button ${location.pathname === '/upimg' ? 'active' : ''}`}
         >
-          UploadImage
+          Upload Image
+        </button>
+        <button
+          onClick={handleNoteClick}
+          className={`nav-button ${location.pathname === '/notes' ? 'active' : ''}`}
+        >
+          Note
         </button>
         {loggedInUser && (
           <div className="profile-dropdown">
@@ -90,24 +105,6 @@ const Navbar = ({ onHomeClick, onLogout }) => {
             </div>
           </div>
         )}
-        {/* <button
-          onClick={handleOCRClick}
-          className={`nav-button ${location.pathname === '/ocr' ? 'active' : ''}`}
-        >
-          OCR
-        </button>
-        <button
-          onClick={navigateToCoverSheet}
-          className={`nav-button ${location.pathname === '/cover-sheet' ? 'active' : ''}`}
-        >
-          Cover Page
-        </button>
-        <button
-          onClick={navigateToPDFToText}
-          className={`nav-button ${location.pathname === '/pdf-to-text' ? 'active' : ''}`}
-        >
-          PDF to Text
-        </button> */}
         {loggedInUser && (
           <div className="profile-dropdown">
             <button
@@ -123,18 +120,22 @@ const Navbar = ({ onHomeClick, onLogout }) => {
               >
                 View Profile
               </button>
-              <button
-                onClick={() => navigate('/admin')}
-                className={`dropdown-item ${location.pathname === '/admin' ? 'active' : ''}`}
-              >
-                Admin Page
-              </button>
-              <button
-                onClick={() => navigate('/user-list')}
-                className={`dropdown-item ${location.pathname === '/user-list' ? 'active' : ''}`}
-              >
-                User List
-              </button>
+              {userType === 'admin' && ( // Conditionally render based on userType
+                <>
+                  <button
+                    onClick={() => navigate('/admin')}
+                    className={`dropdown-item ${location.pathname === '/admin' ? 'active' : ''}`}
+                  >
+                    Admin Page
+                  </button>
+                  <button
+                    onClick={() => navigate('/user-list')}
+                    className={`dropdown-item ${location.pathname === '/user-list' ? 'active' : ''}`}
+                  >
+                    User List
+                  </button>
+                </>
+              )}
               <button
                 onClick={handleLogoutClick}
                 className="dropdown-item"

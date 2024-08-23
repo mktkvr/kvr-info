@@ -133,3 +133,22 @@ h2 {
 .export-button:hover {
   background-color: #0056b3;
 }
+/* components/UserListPage.css */
+.delete-button {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.delete-button:active {
+  transform: scale(0.98);
+}

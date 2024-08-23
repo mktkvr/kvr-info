@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../db/firebaseConfig';
 import * as XLSX from 'xlsx';
+import ConfirmationModal from '../ConfirmationModal'; // Import the modal
 import './UserListPage.css';
 
 const UserListPage = () => {
@@ -10,6 +11,8 @@ const UserListPage = () => {
   const [provinces, setProvinces] = useState([]);
   const [selectedProvince, setSelectedProvince] = useState('');
   const [error, setError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -61,6 +64,34 @@ const UserListPage = () => {
     XLSX.writeFile(wb, "UserList.xlsx");
   };
 
+  const handleDeleteClick = (userId) => {
+    setUserToDelete(userId);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async () => {
+    if (userToDelete) {
+      try {
+        // Delete user from Firestore
+        await deleteDoc(doc(db, "users", userToDelete));
+        // Update local state to remove the deleted user
+        setUsers(users.filter(user => user.id !== userToDelete));
+        setFilteredUsers(filteredUsers.filter(user => user.id !== userToDelete));
+        setUserToDelete(null);
+      } catch (error) {
+        console.error("Error deleting user: ", error);
+        setError('An error occurred while deleting the user.');
+      } finally {
+        setIsModalOpen(false);
+      }
+    }
+  };
+
+  const handleModalCancel = () => {
+    setIsModalOpen(false);
+    setUserToDelete(null);
+  };
+
   return (
     <div className="user-list-container">
       <h2>User List</h2>
@@ -87,7 +118,6 @@ const UserListPage = () => {
         <table className="user-list-table">
           <thead>
             <tr>
-              {/* <th>ID</th> */}
               <th>Name</th>
               <th>Username</th>
               <th>Phone</th>
@@ -97,12 +127,12 @@ const UserListPage = () => {
               <th>District</th>
               <th>Province</th>
               <th>ZipCode</th>
+              <th>Actions</th> {/* Add column for actions */}
             </tr>
           </thead>
           <tbody>
             {filteredUsers.map(user => (
               <tr key={user.id}>
-                {/* <td>{user.id}</td> */}
                 <td>{user.name}</td>
                 <td>{user.username}</td>
                 <td>{user.phone}</td>
@@ -112,6 +142,11 @@ const UserListPage = () => {
                 <td>{user.address?.district || 'N/A'}</td>
                 <td>{user.address?.province || 'N/A'}</td>
                 <td>{user.address?.zipCode || 'N/A'}</td>
+                <td>
+                  <button className="delete-button" onClick={() => handleDeleteClick(user.id)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -119,6 +154,12 @@ const UserListPage = () => {
       ) : (
         <p>No users found.</p>
       )}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onConfirm={handleDelete}
+        onCancel={handleModalCancel}
+        message="Are you sure you want to delete this user?"
+      />
     </div>
   );
 };

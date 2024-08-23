@@ -1,0 +1,47 @@
+.note-page {
+    padding: 20px;
+  }
+  
+  .note-textarea {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .add-note-button {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .message.success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .note-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .note-item {
+    margin-bottom: 20px; /* Adds space between notes */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+  
+  .delete-note-button {
+    margin-top: 10px;
+  }
+  

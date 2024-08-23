@@ -18,6 +18,7 @@ import Footer from './components/Footer';
 import PdfToTextPage from './components/other/pages/PdfToTextPage';
 import './App.css';
 import Uploadimg from './components/uploadimg/Uploadimg';
+import NotePage from './components/note/NotePage';
 
 // Create a component to manage route saving
 const RouteManager = ({ children }) => {
@@ -119,6 +120,7 @@ const App = () => {
             <Route path="/cover-sheet" element={<CoverSheetPage />} />
             <Route path="/pdf-to-text" element={<PdfToTextPage />} />
             <Route path="/upimg" element={<Uploadimg />} />
+            <Route path="/notes" element={<NotePage />} />
             <Route path="/app" element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <AppDisplay groupedApps={groupedApps} />
