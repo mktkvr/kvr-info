@@ -1,0 +1,213 @@
+/* src/components/OCRPage.css */
+
+.ocr-page {
+    padding: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  input[type="file"] {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  /* button:hover:not(:disabled) {
+    background-color: #0056b3;
+  } */
+  
+  .extracted-texts {
+    margin-top: 20px;
+  }
+  
+  .extracted-text {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .extracted-text h4 {
+    margin-top: 0;
+    color: #555;
+  }
+  
+  .extracted-text p {
+    font-size: 16px;
+    color: #333;
+    word-wrap: break-word;
+  }
+  
+  .copy-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .copy-button.copied {
+    background-color: #6c757d;
+  }
+  
+  .copy-button:hover {
+    background-color: #218838;
+  }
+  
+  .copy-button.copied:hover {
+    background-color: #5a6268;
+  }
+  /* src/components/OCRPage.css */
+  
+  input[type="file"] {
+    display: none; /* ซ่อน input เดิม */
+  }
+  
+  .custom-file-upload {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    text-align: center;
+    margin: 0 auto 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .custom-file-upload:active {
+    background-color: #004085;
+    border-color: #003768;
+  }
+  
+  .custom-file-upload:focus {
+    outline: none;
+  }
+  /* src/components/OCRPage.css */
+  
+  .file-info {
+    margin: 0px 0;
+  }
+  
+  .file-info p {
+    font-weight: bold;
+  }
+  
+  .file-info ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .file-info li {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  .text-output {
+    width: 100%;
+    height: 200px;
+    overflow-y: auto;
+    font-family: Arial, sans-serif;
+  }
+  .copy-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  .copy-button.copied {
+    background-color: #555;
+  }
+  .ocr-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .upload-button, .copy-button {
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .upload-button:hover, .copy-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .file-info ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .extracted-texts {
+    margin-top: 20px;
+  }
+  
+  .text-columns {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .text-column {
+    flex: 1;
+  }
+  
+  .text-output {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+  }
+  
+  .copy-button.copied {
+    background-color: #28a745;
+  }
+  

@@ -21,6 +21,8 @@ const LoginPage = ({ onLoginSuccess }) => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    const userTypeFromDB = 'admin'; // ค่าจริงที่ได้จากฐานข้อมูลหรือกระบวนการอื่น ๆ
+  localStorage.setItem('userType', userTypeFromDB);
 
     try {
       const usersCollection = collection(db, "users"); // Replace with your collection name

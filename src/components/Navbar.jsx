@@ -23,16 +23,8 @@ const Navbar = ({ onHomeClick, onLogout }) => {
     navigate('/app');
   };
 
-  const handleUpimgClick = () => {
-    navigate('/upimg');
-  };
-
   const handleNoteClick = () => {
     navigate('/notes');
-  };
-
-  const handleOtherClick = () => {
-    navigate('/Other');
   };
 
   const handleProfileClick = () => {
@@ -91,10 +83,10 @@ const Navbar = ({ onHomeClick, onLogout }) => {
                 Cover Page
               </button>
               <button
-                onClick={() => navigate('/pdf-to-text')}
-                className={`dropdown-item ${location.pathname === '/pdf-to-text' ? 'active' : ''}`}
+                onClick={() => navigate('/pdf-label')}
+                className={`dropdown-item ${location.pathname === '/pdf-label' ? 'active' : ''}`}
               >
-                PDF to Text
+                PDF label
               </button>
             </div>
           </div>

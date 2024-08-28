@@ -15,9 +15,9 @@ import AppDisplay from './components/applink/AppDisplay';
 import ProtectedRoute from './components/ProtectedRoute';
 import CoverSheetPage from './components/other/CoverSheetPage';
 import Footer from './components/Footer';
-import PdfToTextPage from './components/other/pages/PdfToTextPage';
 import './App.css';
 import NotePage from './components/note/NotePage';
+import Pdflabel from './components/other/pages/pdf-label';
 
 // Create a component to manage route saving
 const RouteManager = ({ children }) => {
@@ -117,7 +117,7 @@ const App = () => {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/user-list" element={<UserListPage />} />
             <Route path="/cover-sheet" element={<CoverSheetPage />} />
-            <Route path="/pdf-to-text" element={<PdfToTextPage />} />
+            <Route path='/pdf-label' element={<Pdflabel />} />
             <Route path="/notes" element={<NotePage />} />
             <Route path="/app" element={
               <ProtectedRoute isLoggedIn={isLoggedIn}>

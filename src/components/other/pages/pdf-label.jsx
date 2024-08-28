@@ -4,10 +4,10 @@ import { getDocument } from "pdfjs-dist/legacy/build/pdf";
 import { saveAs } from "file-saver";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
-import "./PdfToTextPage.css";
+import "./pdf-label.css";
 import "./pdf.worker.mjs"; // Import the custom worker
 
-const PdfToTextPage = () => {
+const Pdflabel = () => {
   const [files, setFiles] = useState([]);
   const [texts, setTexts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,35 +44,38 @@ const PdfToTextPage = () => {
               }).promise;
 
               // Convert the canvas to grayscale
-              const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+              const imageData = context.getImageData(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+              );
               const data = imageData.data;
               for (let j = 0; j < data.length; j += 4) {
-                const grayscale = data[j] * 0.3 + data[j + 1] * 0.59 + data[j + 2] * 0.11;
+                const grayscale =
+                  data[j] * 0.3 + data[j + 1] * 0.59 + data[j + 2] * 0.11;
                 data[j] = grayscale;
                 data[j + 1] = grayscale;
                 data[j + 2] = grayscale;
               }
               context.putImageData(imageData, 0, 0);
 
-              const { data: { text } } = await Tesseract.recognize(
-                canvas.toDataURL(), 
-                "tha", 
-                {
-                  logger: (m) => console.log(m),
-                  psm: 6, // Try different modes: 3, 4, 6, 11, 12, 13
-                  oem: 1, // Try different modes: 0, 1, 2, 3
-                  tessedit_char_whitelist: 'ก-๙0-9a-zA-Z', // Limit recognized characters
-                }
-              );
-              
+              const {
+                data: { text },
+              } = await Tesseract.recognize(canvas.toDataURL(), "tha+eng", {
+                logger: (m) => console.log(m),
+                psm: 6, // Assume a single uniform block of text.
+                oem: 3, // Use LSTM OCR engine.
+                tessedit_char_whitelist: "ก-ฮa-zA-Z0-9", // Limit recognized characters to Thai, English, and numbers
+              });
 
               return text;
             })
           );
         }
 
-        const texts = await Promise.all(pageTextPromises);
-        return texts.join("\n");
+        const pageTexts = await Promise.all(pageTextPromises);
+        return pageTexts; // Return array of texts, each representing a page
       });
 
       const results = await Promise.all(textPromises);
@@ -84,25 +87,32 @@ const PdfToTextPage = () => {
     }
   };
 
-  const handleCopy = (text, index) => {
+  const handleCopy = (text, fileIndex, pageIndex) => {
     navigator.clipboard.writeText(text);
-    setCopiedIndex(index);
+    setCopiedIndex(`${fileIndex}-${pageIndex}`);
   };
 
   const handleExportExcel = () => {
-    const ws = XLSX.utils.aoa_to_sheet(
-      texts.map((text, index) => [files[index].name, text])
+    const wsData = texts.flatMap((pageTexts, fileIndex) =>
+      pageTexts.map((text, pageIndex) => [
+        `${files[fileIndex].name} - Page ${pageIndex + 1}`,
+        text,
+      ])
     );
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Extracted Texts");
     XLSX.writeFile(wb, "Extracted_Texts.xlsx");
   };
 
   const handleExportPDF = () => {
-    texts.forEach((text, index) => {
+    texts.forEach((pageTexts, fileIndex) => {
       const doc = new jsPDF();
-      doc.text(text, 10, 10);
-      doc.save(`${files[index].name.replace(".pdf", "")}.pdf`);
+      pageTexts.forEach((text, pageIndex) => {
+        if (pageIndex > 0) doc.addPage();
+        doc.text(text, 10, 10);
+      });
+      doc.save(`${files[fileIndex].name.replace(".pdf", "")}.pdf`);
     });
   };
 
@@ -145,38 +155,46 @@ const PdfToTextPage = () => {
       )}
 
       <div className="extracted-texts">
-        {texts.map((text, index) => (
-          <div key={index} className="extracted-text">
-            <h4>Extracted Text from File {index + 1}:</h4>
-            <textarea
-              value={text}
-              readOnly
-              rows="10"
-              cols="80"
-              className="text-output"
-            />
-            <button
-              className={`copy-button ${copiedIndex === index ? "copied" : ""}`}
-              onClick={() => handleCopy(text, index)}
-            >
-              {copiedIndex === index ? "Copied!" : "Copy Text"}
-            </button>
+        {texts.map((pageTexts, fileIndex) => (
+          <div key={fileIndex} className="file-extracted-texts">
+            {texts.length > 0 && (
+              <>
+                <button onClick={handleExportExcel} className="export-button">
+                  Export to Excel
+                </button>
+                <button onClick={handleExportPDF} className="export-button">
+                  Export to PDF
+                </button>
+              </>
+            )}
+            <h4>Extracted Text from File {fileIndex + 1}:</h4>
+            {pageTexts.map((text, pageIndex) => (
+              <div key={pageIndex} className="extracted-text">
+                <h5>Page {pageIndex + 1}:</h5>
+                <textarea
+                  value={text}
+                  readOnly
+                  rows="10"
+                  cols="80"
+                  className="text-output"
+                />
+                <button
+                  className={`copy-button ${
+                    copiedIndex === `${fileIndex}-${pageIndex}` ? "copied" : ""
+                  }`}
+                  onClick={() => handleCopy(text, fileIndex, pageIndex)}
+                >
+                  {copiedIndex === `${fileIndex}-${pageIndex}`
+                    ? "Copied!"
+                    : "Copy Text"}
+                </button>
+              </div>
+            ))}
           </div>
         ))}
       </div>
-
-      {texts.length > 0 && (
-        <>
-          <button onClick={handleExportExcel} className="export-button">
-            Export to Excel
-          </button>
-          <button onClick={handleExportPDF} className="export-button">
-            Export to PDF
-          </button>
-        </>
-      )}
     </div>
   );
 };
 
-export default PdfToTextPage;
+export default Pdflabel;
