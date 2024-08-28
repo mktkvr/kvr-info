@@ -64,12 +64,6 @@ const Navbar = ({ onHomeClick, onLogout }) => {
           Home
         </button>
         <button
-          onClick={handleUpimgClick}
-          className={`nav-button ${location.pathname === '/upimg' ? 'active' : ''}`}
-        >
-          Upload Image
-        </button>
-        <button
           onClick={handleNoteClick}
           className={`nav-button ${location.pathname === '/notes' ? 'active' : ''}`}
         >

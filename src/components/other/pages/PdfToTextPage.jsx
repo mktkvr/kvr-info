@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import Tesseract from 'tesseract.js';
-import { getDocument } from 'pdfjs-dist/legacy/build/pdf';
-import { saveAs } from 'file-saver';
-import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf';
-import './PdfToTextPage.css';
-import './pdf.worker.mjs'; // Import the custom worker
+import React, { useState } from "react";
+import Tesseract from "tesseract.js";
+import { getDocument } from "pdfjs-dist/legacy/build/pdf";
+import { saveAs } from "file-saver";
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import "./PdfToTextPage.css";
+import "./pdf.worker.mjs"; // Import the custom worker
 
 const PdfToTextPage = () => {
   const [files, setFiles] = useState([]);
@@ -19,63 +19,62 @@ const PdfToTextPage = () => {
     setCopiedIndex(null);
   };
 
-  const extractTextAfterKeywords = (text, keywords) => {
-    let result = '';
-    let keywordFound = false;
-    let startIndex = 0;
-    keywords.forEach(keyword => {
-      const keywordIndex = text.indexOf(keyword, startIndex);
-      if (keywordIndex !== -1) {
-        startIndex = keywordIndex + keyword.length;
-        result += text.substring(startIndex).trim() + '\n'; // Extract text after keyword
-        keywordFound = true;
-      }
-    });
-    return keywordFound ? result.trim() : ''; // Return result if any keyword found
-  };
-  
   const handleExtractText = async () => {
     if (files.length === 0) return;
     setIsLoading(true);
-  
+
     try {
       const textPromises = files.map(async (file) => {
         const pdf = await getDocument(URL.createObjectURL(file)).promise;
         const numPages = pdf.numPages;
         const pageTextPromises = [];
-  
+
         for (let i = 1; i <= numPages; i++) {
           pageTextPromises.push(
             pdf.getPage(i).then(async (page) => {
               const viewport = page.getViewport({ scale: 2 });
-              const canvas = document.createElement('canvas');
-              const context = canvas.getContext('2d');
+              const canvas = document.createElement("canvas");
+              const context = canvas.getContext("2d");
               canvas.width = viewport.width;
               canvas.height = viewport.height;
-  
+
               await page.render({
                 canvasContext: context,
-                viewport: viewport
+                viewport: viewport,
               }).promise;
-  
+
+              // Convert the canvas to grayscale
+              const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+              const data = imageData.data;
+              for (let j = 0; j < data.length; j += 4) {
+                const grayscale = data[j] * 0.3 + data[j + 1] * 0.59 + data[j + 2] * 0.11;
+                data[j] = grayscale;
+                data[j + 1] = grayscale;
+                data[j + 2] = grayscale;
+              }
+              context.putImageData(imageData, 0, 0);
+
               const { data: { text } } = await Tesseract.recognize(
-                canvas.toDataURL(),
-                'eng+tha', // Specify both English and Thai languages
+                canvas.toDataURL(), 
+                "tha", 
                 {
                   logger: (m) => console.log(m),
+                  psm: 6, // Try different modes: 3, 4, 6, 11, 12, 13
+                  oem: 1, // Try different modes: 0, 1, 2, 3
+                  tessedit_char_whitelist: 'ก-๙0-9a-zA-Z', // Limit recognized characters
                 }
               );
-  
-              // Extract text starting from "ถึง" and "Order ID"
-              return extractTextAfterKeywords(text, ['ถึง', 'Order ID']);
+              
+
+              return text;
             })
           );
         }
-  
+
         const texts = await Promise.all(pageTextPromises);
-        return texts.join('\n');
+        return texts.join("\n");
       });
-  
+
       const results = await Promise.all(textPromises);
       setTexts(results);
     } catch (error) {
@@ -84,14 +83,16 @@ const PdfToTextPage = () => {
       setIsLoading(false);
     }
   };
-  
+
   const handleCopy = (text, index) => {
     navigator.clipboard.writeText(text);
     setCopiedIndex(index);
   };
 
   const handleExportExcel = () => {
-    const ws = XLSX.utils.aoa_to_sheet(texts.map((text, index) => [files[index].name, text]));
+    const ws = XLSX.utils.aoa_to_sheet(
+      texts.map((text, index) => [files[index].name, text])
+    );
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Extracted Texts");
     XLSX.writeFile(wb, "Extracted_Texts.xlsx");
@@ -101,7 +102,7 @@ const PdfToTextPage = () => {
     texts.forEach((text, index) => {
       const doc = new jsPDF();
       doc.text(text, 10, 10);
-      doc.save(`${files[index].name.replace('.pdf', '')}.pdf`);
+      doc.save(`${files[index].name.replace(".pdf", "")}.pdf`);
     });
   };
 
@@ -114,10 +115,10 @@ const PdfToTextPage = () => {
         accept=".pdf"
         onChange={handleFileChange}
         multiple
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
       />
       <button
-        onClick={() => document.getElementById('file-upload').click()}
+        onClick={() => document.getElementById("file-upload").click()}
         className="upload-button"
       >
         Select PDF Files
@@ -125,7 +126,9 @@ const PdfToTextPage = () => {
 
       {files.length > 0 && (
         <div className="file-info">
-          <p><strong>Selected Files:</strong></p>
+          <p>
+            <strong>Selected Files:</strong>
+          </p>
           <ul>
             {files.map((file, index) => (
               <li key={index}>{file.name}</li>
@@ -137,7 +140,7 @@ const PdfToTextPage = () => {
 
       {files.length > 0 && (
         <button onClick={handleExtractText} disabled={isLoading}>
-          {isLoading ? 'Extracting...' : 'Extract Text'}
+          {isLoading ? "Extracting..." : "Extract Text"}
         </button>
       )}
 
@@ -153,10 +156,10 @@ const PdfToTextPage = () => {
               className="text-output"
             />
             <button
-              className={`copy-button ${copiedIndex === index ? 'copied' : ''}`}
+              className={`copy-button ${copiedIndex === index ? "copied" : ""}`}
               onClick={() => handleCopy(text, index)}
             >
-              {copiedIndex === index ? 'Copied!' : 'Copy Text'}
+              {copiedIndex === index ? "Copied!" : "Copy Text"}
             </button>
           </div>
         ))}
